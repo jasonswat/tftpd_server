@@ -1,0 +1,8 @@
+LABEL 2
+        MENU LABEL CoreOS (64-bit)
+        KERNEL coreos/coreos_production_pxe.vmlinuz
+        INITRD coreos/coreos_production_pxe_image.cpio.gz
+        APPEND coreos.autologin=tty1 cloud-config-url=<%= @http_server %>/bootstrap.sh
+        TEXT HELP
+        Install CoreOS (64-bit)
+        ENDTEXT

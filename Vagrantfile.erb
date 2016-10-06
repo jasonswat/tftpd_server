@@ -1,0 +1,4 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "default-ubuntu"
+  config.vm.network "public_network", bridge: "en0: Wi-Fi (AirPort)"
+end

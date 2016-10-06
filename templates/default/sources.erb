@@ -1,0 +1,6 @@
+# This file is managed by Chef in <%= "#{@resource.cookbook_name}::#{@resource.recipe_name}" %>.
+# Any manual modifications to this file will be short-lived.
+<% node['tftpd_server']['apt_sources'].each do |source| %>
+<%= "#{source}" %>
+<% end %>
+

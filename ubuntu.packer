@@ -1,0 +1,65 @@
+{
+    "variables": {
+        "ssh_name": "vagrant",
+        "ssh_pass": "vagrant1",
+        "hostname": "blacksabbath"
+    },
+    "builders": [{
+        "type": "virtualbox-iso",
+        "guest_os_type": "Ubuntu_64",
+        "communicator": "ssh", 
+        "ssh_pty": "true",
+        "vboxmanage": [
+            ["modifyvm", "{{.Name}}", "--memory", "512"]
+        ],
+        "disk_size" : 20480,
+        "hard_drive_interface": "sata",
+        "headless": "false",
+        "iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
+        "iso_checksum": "23e97cd5d4145d4105fbf29878534049",
+        "iso_checksum_type": "md5",
+        "http_directory" : "http",
+        "http_port_min" : 9001,
+        "http_port_max" : 9001,
+        "ssh_username": "{{user `ssh_name`}}",
+        "ssh_password": "{{user `ssh_pass`}}",
+        "ssh_wait_timeout": "30m",
+        "output_directory": "output",
+        "guest_additions_mode": "disable",
+        "shutdown_command": "echo {{user `ssh_pass`}} | sudo -E -S systemctl poweroff",
+        "boot_wait": "5s",
+        "boot_command" : [
+        "<enter><wait>",
+        "<f6><esc>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs>",
+        "/install/vmlinuz ",
+        "initrd=/install/initrd.gz ",
+        "auto-install/enable=true ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu.minimal.preseed ",
+        "hostname={{user `hostname`}} ",
+        "console-setup/ask_detect=false ",
+        "keyboard-configuration/layoutcode=us ",
+        "<enter>"
+        ]
+    }],
+    "provisioners": [{
+      "type": "shell",
+      "execute_command": "echo 'vagrant1' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "scripts": [
+      "scripts/vagrant.sh"
+      ]
+    }],
+    "post-processors": [{
+        "type": "vagrant",
+        "compression_level": "6",
+        "output": "ubuntu-16.04-amd64.box"
+    }]
+}

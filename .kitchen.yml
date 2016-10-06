@@ -1,0 +1,19 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu 
+    driver_config:
+      box: ubuntu-16.04
+      box_url: file://~/cookbooks/tftp_server/ubuntu-16.04-amd64.box
+      vagrantfile_erb: Vagrantfile.erb
+
+suites:
+  - name: default
+    run_list:
+      - recipe[tftpd_server::default]
+    attributes:
