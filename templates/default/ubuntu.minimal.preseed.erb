@@ -10,7 +10,7 @@ d-i mirror/country string manual
 d-i mirror/http/hostname string archive.ubuntu.com
 d-i mirror/http/directory string /ubuntu
 d-i mirror/http/proxy string
-d-i mirror/suite string xenial
+#d-i mirror/suite string <%= @distro %> 
 d-i passwd/root-password password <%= node['tftpd_server']['ubuntu']['root_password'] %> 
 d-i passwd/root-password-again password <%= node['tftpd_server']['ubuntu']['root_password'] %>
 d-i passwd/user-fullname string <%= node['tftpd_server']['ubuntu']['user_fullname'] %>
@@ -42,8 +42,10 @@ d-i partman/confirm_nooverwrite boolean true
 tasksel tasksel/first multiselect minimal
 d-i pkgsel/include string openssh-server build-essential git
 d-i pkgsel/update-policy select none
+d-i apt-setup/security-updates boolean false
 d-i grub-installer/only_debian boolean true
 d-i grub-installer/with_other_os boolean true
+d-i pkgsel/update-policy select none
 d-i finish-install/reboot_in_progress note
 d-i preseed/late_command string apt-install zsh; in-target chsh -s /bin/zsh; \
 in-target wget -O /tmp/chefdk.deb <%=node['tftpd_server']['ubuntu']['chef_deb_pkg_url']%>; \

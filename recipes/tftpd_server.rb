@@ -73,6 +73,7 @@ end
   end
 end
 
+# tftpd config file setup
 template '/etc/default/tftpd-hpa' do
   source 'tftpd-hpa.erb'
   mode '0755'
@@ -84,18 +85,16 @@ template '/etc/default/tftpd-hpa' do
   notifies :reload, 'service[tftpd-hpa]', :immediately
 end
 
-template "#{node['tftpd_server']['tftp_directory']}/pxelinux.cfg/pxe.conf" do
-  source 'pxe.conf.erb'
-  mode '0755'
-  notifies :reload, 'service[tftpd-hpa]', :immediately
+# pxelinux.cfg/default and pxe.conf setup
+['default', 'pxe.conf'].each do | pxelinux_file |
+  template "#{node['tftpd_server']['tftp_directory']}/pxelinux.cfg/#{pxelinux_file}" do
+    source "#{pxelinux_file}.erb"
+    mode '0755'
+    notifies :reload, 'service[tftpd-hpa]', :immediately
+  end
 end
 
-template "#{node['tftpd_server']['tftp_directory']}/pxelinux.cfg/default" do
-  source 'pxelinux.cfg.default.erb'
-  mode '0755'
-  notifies :reload, 'service[tftpd-hpa]', :immediately
-end
-
+# setup the menu files
 ['utilities', 'coreos', 'ubuntu'].each do |menu_name|
   template "#{node['tftpd_server']['tftp_directory']}/#{menu_name}/#{menu_name}.menu" do
     source "#{menu_name}.menu.erb"
@@ -118,6 +117,7 @@ remote_file '/tmp/dban.iso' do
   notifies :run, 'bash[setup_dban_menu]', :immediately
 end
 
+# add logo file
 remote_file '/tftpboot/pxelinux.cfg/logo.png' do
   source 'https://raw.githubusercontent.com/jasonswat/coreos_pxe/master/logo.png'
 end
@@ -130,4 +130,13 @@ bash 'setup_dban_menu' do
     EOH
     action :run
   not_if { ::File.exists?("#{dban_dir}/dban.bzi") }
+end
+
+# coreos binary setup
+['coreos_production_pxe_image.cpio.gz', 'coreos_production_pxe.vmlinuz'].each do |coreos_bin|
+  remote_file "/tftpboot/coreos/#{coreos_bin}" do
+    source "#{node['tftpd_server']['coreos']['core_url']}/#{coreos_bin}"
+    mode '0755'
+    action :create
+  end
 end

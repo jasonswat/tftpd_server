@@ -2,7 +2,7 @@
 <%= "LABEL  #{index}" %> 
 <%= "        MENU LABEL Ubuntu #{distro} (64-bit)" %>
 <%= "        KERNEL ubuntu/#{distro}/amd64/linux "%>
-<%= "        APPEND initrd=ubuntu/#{distro}/amd64/initrd.gz auto locale=en_US.UTF-8 keyboard-configuration/layoutcode=us url=#{@http_server}/ubuntu.minimal netcfg/get_hostname=#{node['tftpd_server']['ubuntu']['hostname']} vga=0x317 --" %>
+<%= "        APPEND initrd=ubuntu/#{distro}/amd64/initrd.gz auto locale=en_US.UTF-8 keyboard-configuration/layoutcode=us url=#{@http_server}/#{distro}.ubuntu.minimal netcfg/get_hostname=#{node['tftpd_server']['ubuntu']['hostname']} vga=0x317 --" %>
 <%= "        TEXT HELP" %>
 <%= "        Boot the Ubuntu #{distro} 64-bit Unattended Minimal Install" %>
 <%= "        ENDTEXT" %>
