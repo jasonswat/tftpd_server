@@ -27,3 +27,8 @@ To build the vbox image:
 packer build ubuntu.packer
 ```
 
+```
+git clone git@github.com:jasonswat/tftpd_server.git
+
+cd tftpd_server
+```

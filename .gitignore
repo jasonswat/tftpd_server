@@ -1,0 +1,21 @@
+.vagrant
+Berksfile.lock
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+.kitchen
+*.box
+Berksfile
+Gemfile
+Makefile
+Thorfile
+chefignore
