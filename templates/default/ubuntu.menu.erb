@@ -7,3 +7,10 @@
 <%= "        Boot the Ubuntu #{distro} 64-bit Unattended Minimal Install" %>
 <%= "        ENDTEXT" %>
 <% end %>
+LABEL  3
+        MENU LABEL Ubuntu trusty (64-bit) desktop
+        KERNEL ubuntu/trusty/amd64/linux
+        APPEND initrd=ubuntu/trusty/amd64/initrd.gz auto locale=en_US.UTF-8 keyboard-configuration/layoutcode=us url=http://192.168.1.23/trusty.ubuntu.desktop netcfg/get_hostname=trixter vga=0x317 --
+        TEXT HELP
+        Boot the Ubuntu trusty 64-bit Unattended Desktop Install
+        ENDTEXT

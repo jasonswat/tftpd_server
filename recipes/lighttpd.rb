@@ -1,4 +1,6 @@
-node['tftpd_server']['ubuntu']['distros'].each_pair do |distro, checksum_|
+# removed because trusty needs a different file
+#node['tftpd_server']['ubuntu']['distros'].each_pair do |distro, checksum_|
+['xenial', 'yakkety'].each do |distro|
   template "#{node['tftpd_server']['lighttpd_doc_root']}/#{distro}.ubuntu.minimal" do
     source 'ubuntu.minimal.preseed.erb'
     mode '0755'

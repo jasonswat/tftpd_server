@@ -39,7 +39,7 @@ directory dban_dir do
   recursive true
 end
 
-['pxelinux.cfg', 'ubuntu', 'coreos', 'utilities'].each do |dir|
+['pxelinux.cfg', 'ubuntu', 'coreos', 'utilities', 'archlinux'].each do |dir|
   directory "#{node['tftpd_server']['tftp_directory']}/#{dir}"
 end
 
@@ -95,7 +95,7 @@ end
 end
 
 # setup the menu files
-['utilities', 'coreos', 'ubuntu'].each do |menu_name|
+['utilities', 'coreos', 'ubuntu', 'archlinux'].each do |menu_name|
   template "#{node['tftpd_server']['tftp_directory']}/#{menu_name}/#{menu_name}.menu" do
     source "#{menu_name}.menu.erb"
     mode '0755'

@@ -11,7 +11,8 @@ default['tftpd_server']['pkgs'] = [
   'syslinux-common',
   'syslinux',
   'tcpdump',
-  'lighttpd'
+  'lighttpd',
+  'openssh-server'
   ]
 default['tftpd_server']['lighttpd_doc_root'] = '/var/www/html'
 default['tftpd_server']['tftp_directory'] = '/tftpboot'
@@ -28,7 +29,8 @@ default['tftpd_server']['ubuntu']['hostname'] = 'trixter'
 default['tftpd_server']['ubuntu']['filesystem'] = 'ext4'
 default['tftpd_server']['ubuntu']['distro_url'] = 'http://archive.ubuntu.com/ubuntu/dists' 
 default['tftpd_server']['dban_url'] = 'http://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso/download'
+default['tftpd_server']['archlinux_url'] = 'http://releng.archlinux.org/pxeboot/ipxe.lkrn'
 default['tftpd_server']['ubuntu']['distros'] = {
   trusty: 'cad0f44d6a93be1fc6e78d47df431c05daf2687a4f9621e9b4195d06320e58af',
   xenial: '12af843b596ba433309eb9023ede8b8451ebd5f0e8269217665012afcebdfd26',
-  yakkety: 'cbd5d4920985ada6c5a48bd64c303856a4b363a9ca6c6e889b2c31ed8b4c8e59' }
+  yakkety: '6bd66b947bf704621ebfba05213b14223e9f391ebbcf7fad21cc8fe51dda76c6' }
