@@ -7,10 +7,11 @@ provisioner:
 
 platforms:
   - name: ubuntu 
-    driver_config:
+    driver:
       box: ubuntu-16.04
-      box_url: file://~/cookbooks/tftp_server/ubuntu-16.04-amd64.box
-      vagrantfile_erb: Vagrantfile.erb
+      box_url: http://192.168.10.184/software/ubuntu-16.04-amd64.box
+      network:
+        - ['public_network', bridge: 'en0: Wi-Fi (AirPort)']
 
 suites:
   - name: default
